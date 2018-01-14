@@ -2,36 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class testRayCast : MonoBehaviour {
+public class SpotObject : MonoBehaviour {
 
-  public GameObject player;
+  public GameObject target;
+  public string targetTag;
   //Transform spot;
-  public int playerSeen = 0;
+  public int targetSeen = 0;
 
-	// Use this for initialization
+	
 	void Start () {
-    //spot = player.transform;
+    if (targetTag == "")
+      targetTag = "Player";
 	}
 	
-	// Update is called once per frame
+	
 	void Update () {
 
-    if (playerSeen > 0) {
-      playerSeen--;
+    if (targetSeen > 0) {
+      targetSeen--;
     }  
 	}
 
   void OnTriggerStay(Collider other) {
-    if (other.tag == "Player") {
+    if (other.tag == targetTag) {
       Debug.DrawLine(transform.position, other.transform.position);
       //Debug.Log("player nearby");
-      player = other.gameObject;
+      target = other.gameObject;
       if (Physics.Linecast(transform.position, other.transform.position, ~(1 << 8)))
       {
-        Debug.Log("player blocked");
+        //Debug.Log("player blocked");
       }
       else {
-        playerSeen = 120;
+        targetSeen = 120;
       }
     }
   }

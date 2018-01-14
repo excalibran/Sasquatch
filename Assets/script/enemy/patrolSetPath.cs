@@ -14,7 +14,7 @@ public class patrolSetPath : MonoBehaviour
 
   public Reports reports;
 
-  testRayCast detecter;
+  SpotObject detecter;
 
 
   void Start()
@@ -25,7 +25,7 @@ public class patrolSetPath : MonoBehaviour
 
     agent = GetComponent<NavMeshAgent>();
     agent.autoBraking = false;
-    detecter = GetComponentInChildren<testRayCast>();
+    detecter = GetComponentInChildren<SpotObject>();
     
     GotoNextPoint();
   }
@@ -52,19 +52,21 @@ public class patrolSetPath : MonoBehaviour
 
   void Update()
   {
-    if (detecter.playerSeen > 0 && detecter.player)
-    {
-      Debug.Log("seen");
-      agent.ResetPath();
-      agent.destination = detecter.player.transform.position;
-    }
-    else if (reports.list.Count > 0) {
-      agent.destination = reports.list[0];
-      GotoNextPoint();
-    }
-    else {
-      if (!agent.pathPending && agent.remainingDistance < 0.5f)
+    if (agent.enabled) {
+      if (detecter.targetSeen > 0 && detecter.target)
+      {
+        //Debug.Log("seen");
+        agent.ResetPath();
+        agent.destination = detecter.target.transform.position;
+      }
+      else if (reports.list.Count > 0) {
+        agent.destination = reports.list[0];
         GotoNextPoint();
+      }
+      else {
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+          GotoNextPoint();
+      }
     }
   }
 }

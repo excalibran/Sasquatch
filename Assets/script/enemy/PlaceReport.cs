@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaceMarker : MonoBehaviour {
+public class PlaceReport : MonoBehaviour {
 
-  testRayCast detect;
+  SpotObject detect;
   public Reports reports;
   int delay = 120;
 
 	// Use this for initialization
 	void Start () {
-    detect = GetComponentInChildren<testRayCast>();
+    detect = GetComponentInChildren<SpotObject>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-    if (detect.playerSeen > 0) {
+
+    if (detect.targetSeen > 0) {
       if (delay <= 0) {
-        reports.list.Add(detect.player.transform.position);
-        Debug.Log("report placed");
+        reports.list.Add(detect.target.transform.position);
+        //Debug.Log("report placed");
         delay = 120;
       }
       else{
