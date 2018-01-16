@@ -110,14 +110,14 @@ public static class GameState {
   /// <summary>Toggles the rigibdody physics and character controllers.</summary>
   public static void TogglePause_s()
   {
-    Debug.Log("Calling");
+    
     if (IsStopped())
     {
-      Debug.Log("unpause");
+      //Debug.Log("unpause");
       UnpauseEverything_s();
     }
     else {
-      Debug.Log("pause");
+      //Debug.Log("pause");
       PauseEverything_s();
     }
   }

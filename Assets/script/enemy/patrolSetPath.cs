@@ -11,6 +11,8 @@ public class patrolSetPath : MonoBehaviour
   public List<Vector3> points;
   private int destPoint = 0;
   private NavMeshAgent agent;
+  private float normSpeed = 3.5f;
+
 
   public Reports reports;
 
@@ -38,11 +40,11 @@ public class patrolSetPath : MonoBehaviour
       return;
     
     agent.destination = points[destPoint];
-    if (reports.list.Count > 0)
+    if (reports.reportsForGuards.Count > 0)
     {
       //points.Insert((destPoint + 1) % points.Count, reports.list[0].transform);
-      points.Add(reports.list[0]);
-      reports.list.Clear();
+      points.Add(reports.reportsForGuards[0]);
+      reports.reportsForGuards.Clear();
     }
     destPoint = (destPoint + 1) % points.Count;
 
@@ -57,14 +59,16 @@ public class patrolSetPath : MonoBehaviour
       {
         //Debug.Log("seen");
         agent.ResetPath();
+        agent.speed = 7;
         agent.destination = detecter.target.transform.position;
       }
-      else if (reports.list.Count > 0) {
-        agent.destination = reports.list[0];
+      else if (reports.reportsForGuards.Count > 0) {
+        agent.destination = reports.reportsForGuards[(int)(Random.Range(0, reports.reportsForGuards.Count - 1))];
         GotoNextPoint();
       }
       else {
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
+          agent.speed = normSpeed;
           GotoNextPoint();
       }
     }

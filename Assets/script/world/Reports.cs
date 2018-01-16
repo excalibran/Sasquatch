@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class Reports : MonoBehaviour {
 
-  public List<Vector3> list;
+  public List<Vector3> reportsForGuards;
+  public List<Vector3> reportsForCivilians;
+  int currentDelay = 1000;
+  int clearDelay = 1000;
 
 	void Start () {
-    list = new List<Vector3>();
+    //reportsForGuards = new List<Vector3>();
 	}
+
+  void update() {
+    if (currentDelay <= 0)
+    {
+      reportsForGuards.Clear();
+      currentDelay = clearDelay;
+    }
+    else {
+      currentDelay--;
+    }
+  }
 }
