@@ -59,7 +59,7 @@ public class patrolSetPath : MonoBehaviour
       {
         //Debug.Log("seen");
         agent.ResetPath();
-        agent.speed = 7;
+        agent.speed = 0;
         agent.destination = detecter.target.transform.position;
       }
       else if (reports.reportsForGuards.Count > 0) {

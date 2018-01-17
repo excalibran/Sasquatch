@@ -11,15 +11,15 @@ public class testWalkScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     agent = GetComponent<NavMeshAgent>();
-    
-	}
+    agent.SetDestination(target.position);
+  }
 	
 	// Update is called once per frame
 	void Update () {
-    agent.SetDestination(target.position);
+    
 	}
 
   void OnDisable() {
-    agent.SetDestination(transform.position);
+    //agent.SetDestination(transform.position);
   }
 }
