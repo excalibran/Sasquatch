@@ -19,7 +19,9 @@ public class CallGuard : MonoBehaviour {
     if (detect.targetSeen > 0) {
       if (delay <= 0) {
         //reports.reportsForGuards.Add(detect.target.transform.position);
-        reports.reportsForGuards.Add(detect.target.transform.position);
+        if (reports.reportsForGuards.Count < 1) {
+          reports.reportsForGuards.Add(detect.target.transform.position);
+        }
         //Debug.Log("report placed");
         delay = 30;
       }

@@ -370,8 +370,6 @@ GameObject:
   - component: {fileID: 4301636744372582}
   - component: {fileID: 114733818272021838}
   - component: {fileID: 114344011804943416}
-  - component: {fileID: 114525057892277470}
-  - component: {fileID: 114220097172427020}
   - component: {fileID: 114262333654403208}
   - component: {fileID: 114852424251339254}
   m_Layer: 0
@@ -1703,22 +1701,6 @@ MonoBehaviour:
   tagsThatCanTrigger:
   - Player
   onlyTriggerOnce: 0
---- !u!114 &114220097172427020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1729213409747236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 6
-  indentLevel: 0
-  targetObject: {fileID: 1460888697014434}
-  methodName: togglePause
-  delay: 0
 --- !u!114 &114254879235592712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1797,6 +1779,7 @@ MonoBehaviour:
   - {fileID: 4730823378276800}
   - {fileID: 4713251377627292}
   points: []
+  currentTarget: {x: 0, y: 0, z: 0}
   reports: {fileID: 114134940122195214}
 --- !u!114 &114340452965482082
 MonoBehaviour:
@@ -1838,9 +1821,9 @@ MonoBehaviour:
   description: 'steal
 
 '
-  eventHandler: {fileID: 114525057892277470}
+  eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 114220097172427020}
+  - {fileID: 0}
   - {fileID: 114262333654403208}
   - {fileID: 114852424251339254}
 --- !u!114 &114418589490170630
@@ -1884,19 +1867,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
---- !u!114 &114525057892277470
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1729213409747236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 114344011804943416}
-  message: steal
 --- !u!114 &114588118249661628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1971,7 +1941,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks: []
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 114262333654403208}
   variables: []
   description: 
   stepPause: 0
