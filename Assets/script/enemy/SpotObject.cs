@@ -24,7 +24,7 @@ public class SpotObject : MonoBehaviour {
 	}
 
   void OnTriggerStay(Collider other) {
-    if (other.tag == targetTag) {
+    if (other.tag == "Player") {
       Debug.DrawLine(transform.position, other.transform.position);
       //Debug.Log("player nearby");
       target = other.gameObject;

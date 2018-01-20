@@ -44,16 +44,12 @@ public class patrolSetPath : MonoBehaviour
     agent.destination = points[destPoint];
     if (reports.reportsForGuards.Count > 0)
     {
-      //points.Insert((destPoint + 1) % points.Count, reports.list[0].transform);
-      //points.Add(reports.reportsForGuards[Random.RandomRange(0, reports.reportsForGuards.Count)]);
-      if (points.Count <= waypoints.Count) {
+      //if (points.Count <= waypoints.Count) {
         points.Add(reports.reportsForGuards[0]);
-      }
+      //}
       reports.reportsForGuards.Clear();
     }
     destPoint = (destPoint + 1) % points.Count;
-
-
   }
 
 
@@ -64,7 +60,6 @@ public class patrolSetPath : MonoBehaviour
     if (agent.enabled) {
       if (detecter.targetSeen > 0 && detecter.target)
       {
-        //Debug.Log("seen");
         agent.ResetPath();
         agent.destination = detecter.target.transform.position;
       }

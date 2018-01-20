@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class moveCamera : MonoBehaviour {
 
+  public bool lockOnPlayer = true;
+  public GameObject player;
+
 	// Use this for initialization
 	void Start () {
-		
+    player = FindObjectOfType<PlayerWalkKeyboard>().gameObject;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-    
-   // transform.position += Vector3.right * 10f * 
-	}
 
   void FixedUpdate()
   {
-    float moveHorizontal = Input.GetAxis("Horizontal");
-    float moveVertical = Input.GetAxis("Vertical");
-
-
-    Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-    transform.position += movement * 1f;
+    if (!lockOnPlayer)
+    {
+      float moveHorizontal = Input.GetAxis("Horizontal");
+      float moveVertical = Input.GetAxis("Vertical");
+      
+      Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+      transform.position += movement * 1f;
+    }
+    else {
+      transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z-10);
+      transform.LookAt(player.transform);
+    }
   }
 }

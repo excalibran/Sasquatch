@@ -6,23 +6,14 @@ using UnityEngine.AI;
 public static class GameState {
 
   static bool pause = false;
-  //static Object[] allObjects = GameObject.FindObjectsOfType(typeof(GameObject));
+  static public GameObject stPlayerRef = GameObject.FindObjectOfType<PlayerWalkKeyboard>().gameObject;
+  static Object[] allObjects = GameObject.FindObjectsOfType(typeof(GameObject));
+  static public List<bool> inventory = new List<bool>();
+
 
   public static bool isPaused() {
     return pause;
   }
-
-  public static void togglePause() {
-    if (pause) {
-      pause = false;
-      Time.timeScale = 1;
-    }
-    else {
-      pause = true;
-      Time.timeScale = 0;
-    }
-  }
-
 
   /// <summary>list of rigid bodies stopped in time</summary>
   private static Rigidbody[] bodies_s = null;
@@ -85,6 +76,9 @@ public static class GameState {
         }
       }
     }
+    if (stPlayerRef){
+      stPlayerRef.GetComponent<PlayerWalkKeyboard>().enabled = false;
+    }
   }
 
   public static void UnpauseEverything_s()
@@ -105,6 +99,9 @@ public static class GameState {
     snapshot_s = null;
     bodies_s = null;
     temporarilyDisabled_s = null;
+    if (stPlayerRef) {
+      stPlayerRef.GetComponent<PlayerWalkKeyboard>().enabled = true;
+    }
   }
 
   /// <summary>Toggles the rigibdody physics and character controllers.</summary>

@@ -18,7 +18,7 @@ public class ChangeCostumeOnPickup : MonoBehaviour {
 
   void OnTriggerEnter(Collider other) {
     if (other.tag == "Player") {
-      
+      other.GetComponent<PlayerWalkKeyboard>().swapCostume(1);
     }
   }
 }
