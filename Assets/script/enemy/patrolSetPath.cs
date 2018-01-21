@@ -47,7 +47,7 @@ public class patrolSetPath : MonoBehaviour
       //if (points.Count <= waypoints.Count) {
         points.Add(reports.reportsForGuards[0]);
       //}
-      reports.reportsForGuards.Clear();
+      //reports.reportsForGuards.Clear();
     }
     destPoint = (destPoint + 1) % points.Count;
   }

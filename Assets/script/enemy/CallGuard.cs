@@ -6,7 +6,7 @@ public class CallGuard : MonoBehaviour {
 
   SpotObject detect;
   public Reports reports;
-  int delay = 30;
+  int delay = 60;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +23,7 @@ public class CallGuard : MonoBehaviour {
           reports.reportsForGuards.Add(detect.target.transform.position);
         }
         //Debug.Log("report placed");
-        delay = 30;
+        delay = 60;
       }
       else{
         delay--;
