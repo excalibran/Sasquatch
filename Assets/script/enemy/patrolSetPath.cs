@@ -9,10 +9,14 @@ public class patrolSetPath : MonoBehaviour
   //public List< patrolPath;
   public List<Transform> waypoints;
   public List<Vector3> points;
-  public Vector3 currentTarget;
+  Vector3 currentTarget;
+
   private int destPoint = 0;
   private NavMeshAgent agent;
   private float normSpeed = 3.5f;
+  public float clearReportDelay = 60f;
+  public float addToPatrolDelay = 1f;
+  public int maxPatrol = 5;
 
 
   public Reports reports;
@@ -28,7 +32,6 @@ public class patrolSetPath : MonoBehaviour
 
     agent = GetComponent<NavMeshAgent>();
     agent.autoBraking = false;
-    //agent.updateRotation = false;
     detecter = GetComponentInChildren<SpotObject>();
     
     GotoNextPoint();
@@ -42,14 +45,19 @@ public class patrolSetPath : MonoBehaviour
       return;
     
     agent.destination = points[destPoint];
+
     if (reports.reportsForGuards.Count > 0)
     {
-      //if (points.Count <= waypoints.Count) {
-        points.Add(reports.reportsForGuards[0]);
-      //}
-      //reports.reportsForGuards.Clear();
+      if (points.Count < maxPatrol && reports.reportsForGuards[reports.reportsForGuards.Count-1] != points[points.Count-1])
+      {
+        points.Add(reports.reportsForGuards[(int)(Random.Range(0, reports.reportsForGuards.Count - 1))]);
+      }
+      else {
+        points.RemoveAt(points.Count-1);
+      }
     }
     destPoint = (destPoint + 1) % points.Count;
+
   }
 
 
@@ -63,7 +71,7 @@ public class patrolSetPath : MonoBehaviour
         agent.ResetPath();
         agent.destination = detecter.target.transform.position;
       }
-      else if (reports.reportsForGuards.Count > 0) {
+      else if (reports.reportsForGuards.Count > 0 && points.Count < maxPatrol) {
         agent.destination = reports.reportsForGuards[(int)(Random.Range(0, reports.reportsForGuards.Count - 1))];
         agent.speed = 7;
         GotoNextPoint();
@@ -75,6 +83,19 @@ public class patrolSetPath : MonoBehaviour
           GotoNextPoint();
         }
       }
+
+      ResetPatrolPath();
+    }
+  }
+
+  IEnumerator ResetPatrolPath() {
+    yield return new WaitForSeconds(clearReportDelay);
+
+    points.Clear();
+
+    foreach (Transform t in waypoints)
+    {
+      points.Add(t.transform.position);
     }
   }
 }

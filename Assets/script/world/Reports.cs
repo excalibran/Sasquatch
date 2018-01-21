@@ -6,7 +6,7 @@ public class Reports : MonoBehaviour {
 
   public List<Vector3> reportsForGuards;
   //public List<Vector3> reportsForCivilians;
-  int currentDelay = 1000;
+  float currentDelay = 30f;
   int clearDelay = 1000;
 
 	void Start () {
@@ -25,5 +25,9 @@ public class Reports : MonoBehaviour {
     else {
       currentDelay--;
     }
+  }
+
+  IEnumerator ClearReports() {
+    yield return new WaitForSeconds(clearDelay);
   }
 }

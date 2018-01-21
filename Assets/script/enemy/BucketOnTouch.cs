@@ -11,7 +11,7 @@ public class BucketOnTouch : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     sight = GetComponent<ChangableSightRange>();
-    render = GetComponentInChildren<SpriteRenderer>();
+    render = GetComponentInChildren<SpriteRenderer>().gameObject.GetComponentInChildren<SpriteRenderer>();
 	}
 
   // Update is called once per frame
@@ -20,10 +20,11 @@ public class BucketOnTouch : MonoBehaviour {
   //}
 
   void OnTriggerEnter(Collider other) {
-    if (other.tag == "Player") {
+    if (other.tag == "Player" && bucketHead && other.GetComponent<GrabAndUseBucket>() && other.GetComponent<GrabAndUseBucket>().bucketReady) {
       Debug.Log("bucket!");
       sight.setBlind();
       render.sprite = bucketHead;
+      other.GetComponent<GrabAndUseBucket>().bucketReady = false;
     }
   }
 }

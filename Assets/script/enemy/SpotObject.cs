@@ -8,6 +8,8 @@ public class SpotObject : MonoBehaviour {
   public string targetTag;
   //Transform spot;
   public int targetSeen = 0;
+  public int sensitivity = 120;
+  
 
 	
 	void Start () {
@@ -18,22 +20,25 @@ public class SpotObject : MonoBehaviour {
 	
 	void Update () {
 
-    if (targetSeen > 0) {
+    if (targetSeen > 0)
+    {
       targetSeen--;
-    }  
+    
+    }
+    
 	}
 
   void OnTriggerStay(Collider other) {
     if (other.tag == "Player") {
       Debug.DrawLine(transform.position, other.transform.position);
-      //Debug.Log("player nearby");
+
       target = other.gameObject;
       if (Physics.Linecast(transform.position, other.transform.position, ~(1 << 8)))
       {
         //Debug.Log("player blocked");
       }
       else {
-        targetSeen = 120;
+        targetSeen = sensitivity;
       }
     }
   }

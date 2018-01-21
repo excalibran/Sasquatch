@@ -5,29 +5,38 @@ using UnityEngine;
 public class CallGuard : MonoBehaviour {
 
   SpotObject detect;
+  public SpriteRenderer emote;
   public Reports reports;
   int delay = 60;
 
 	// Use this for initialization
 	void Start () {
     detect = GetComponentInChildren<SpotObject>();
+    emote = GameObject.Find("Emote").GetComponent<SpriteRenderer>();
+    emote.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-    if (detect.targetSeen > 0) {
-      if (delay <= 0) {
-        //reports.reportsForGuards.Add(detect.target.transform.position);
-        if (reports.reportsForGuards.Count < 1) {
+    if (detect.targetSeen > 0)
+    {
+      if (delay <= 0)
+      {
+        emote.enabled = true;
+
+        if (reports.reportsForGuards.Count > 0)
+        {
           reports.reportsForGuards.Add(detect.target.transform.position);
         }
-        //Debug.Log("report placed");
         delay = 60;
       }
-      else{
+      else {
         delay--;
       }
+    }
+    else {
+      emote.enabled = false;
     }
 	}
 }
