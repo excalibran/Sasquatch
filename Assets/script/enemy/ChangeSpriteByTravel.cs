@@ -9,45 +9,64 @@ public class ChangeSpriteByTravel : MonoBehaviour {
   public Sprite[] sprites;
   NavMeshAgent agent;
   Transform parentTransform;
-  //int cycle = 30;
-
-  int lastDirection;
-
+  Animator anim;
+  public int angle;
+  
 	// Use this for initialization
 	void Start () {
     render = GetComponent<SpriteRenderer>();
     agent = GetComponentInParent<NavMeshAgent>();
     parentTransform = GetComponentInParent<Transform>();
+    anim = GetComponent<Animator>();
   }
 	
 	// Update is called once per frame
 	void Update () {
     Debug.DrawLine(parentTransform.position,agent.destination,Color.red);
 
-    int angle = (int)(parentTransform.transform.localRotation.eulerAngles.y / 90);
+    anim.SetBool("Up", false);
+    anim.SetBool("Down", false);
+    anim.SetBool("Side", false);
+    anim.SetBool("Idle", false);
+    render.flipX = false;
+
+    angle = (int)(parentTransform.transform.localRotation.eulerAngles.y / 90);
 
     if (angle == 0 || angle == 4)
     {
       //up
-      render.sprite = sprites[2];
+      //render.sprite = sprites[2];
+      anim.SetBool("Up", true);
     }
 
-    if (angle == 3 || angle == 5)
+    if (angle == 3 || angle == 8)
     {
-      render.sprite = sprites[1];
+      //render.sprite = sprites[1];
+      anim.SetBool("Side", true);
+      render.flipX = true;
     }
 
 
     if (angle == 2 || angle == 6)
     {
       //Debug.Log("Face left");
-      render.sprite = sprites[0];
+      //render.sprite = sprites[0];
+      anim.SetBool("Down", true);
     }
 
-    if (angle == 1 || angle == 7)
+    if (angle == 1 || angle == 5)
     {
-      render.sprite = sprites[3];
+      //render.sprite = sprites[3];
+      anim.SetBool("Side", true);
+      
     }
+
+    //if (anim.velocity.magnitude < 1) {
+    //  anim.SetBool("Up", false);
+    //  anim.SetBool("Down", false);
+    //  anim.SetBool("Side", false);
+    //  anim.SetBool("Idle", true);
+    //}
 
 
 

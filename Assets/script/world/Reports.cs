@@ -19,6 +19,7 @@ public class Reports : MonoBehaviour {
     {
       if (reportsForGuards.Count > 0) {
         reportsForGuards.RemoveAt(0);
+        Debug.Log("Report removed");
       }
       currentDelay = clearDelay;
     }

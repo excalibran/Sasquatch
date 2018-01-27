@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class GrabAndUseBucket : MonoBehaviour {
 
-  SpriteRenderer visibleBucket;
-  public bool bucketReady;
+  public SpriteRenderer visibleBucket;
+  public bool bucketReady = false;
 
 	// Use this for initialization
 	void Start () {
-    visibleBucket = transform.Find("BucketInHand").GetComponent<SpriteRenderer>();
-
+    //visibleBucket = transform.GetComponentInChildren<Transform>().gameObject.GetComponentInChildren<SpriteRenderer>();
+    visibleBucket.enabled = false;
 	}
 
-  void loseBucket() {
+  public void loseBucket() {
     bucketReady = false;
     visibleBucket.enabled = false;
   }
 
 
-  void pickupBucket() {
+  public void pickupBucket() {
     if (!bucketReady) {
       bucketReady = true;
       visibleBucket.enabled = true;

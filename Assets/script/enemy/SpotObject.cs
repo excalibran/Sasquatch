@@ -15,6 +15,10 @@ public class SpotObject : MonoBehaviour {
 	void Start () {
     if (targetTag == "")
       targetTag = "Player";
+
+    if (!target) {
+      target = GameObject.FindGameObjectWithTag("Player");
+    }
 	}
 	
 	
@@ -23,7 +27,7 @@ public class SpotObject : MonoBehaviour {
     if (targetSeen > 0)
     {
       targetSeen--;
-    
+      //Debug.Log("decrement");
     }
     
 	}
@@ -31,6 +35,7 @@ public class SpotObject : MonoBehaviour {
   void OnTriggerStay(Collider other) {
     if (other.tag == "Player") {
       Debug.DrawLine(transform.position, other.transform.position);
+      //Debug.Log("Spot");
 
       target = other.gameObject;
       if (Physics.Linecast(transform.position, other.transform.position, ~(1 << 8)))

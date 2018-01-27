@@ -33,5 +33,12 @@ public class FungusLiason : MonoBehaviour {
     mainCam.gameObject.GetComponent<moveCamera>().enabled = true;
   }
 
+  public void increasePoint() {
+    GameState.victory++;
+  }
+
+  public void checkInventory() {
+    GameState.checkInventory();
+  }
 
 }

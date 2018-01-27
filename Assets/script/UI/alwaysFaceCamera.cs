@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class alwaysFaceCamera : MonoBehaviour {
 
+  Camera main;
+
+  void Start() {
+    main = GameObject.FindObjectOfType<Camera>();
+  }
+
 	void Update () {
 
-    transform.forward = Camera.main.transform.forward;
+    transform.forward = main.transform.forward;
+      //Camera.main.transform.forward;
   }
 }

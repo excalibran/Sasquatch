@@ -2,19 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public static class GameState {
 
   static bool pause = false;
   static public GameObject stPlayerRef = GameObject.FindObjectOfType<PlayerWalkKeyboard>().gameObject;
-  static Object[] allObjects = GameObject.FindObjectsOfType(typeof(GameObject));
-  static public List<bool> inventory = new List<bool>();
+  //static Object[] allObjects = GameObject.FindObjectsOfType(typeof(GameObject));
+  static public int victory;
 
+  public static void checkInventory() {
+    if (victory >= 3) {
+      //SceneManager.LoadScene("VictoryRoom");
+    }
+  }
 
   public static bool isPaused() {
     return pause;
   }
 
+  public static void ChangeSightLines(string how) {
+    List<ChangableSightRange> all = new List<ChangableSightRange>();
+    all.AddRange(GameObject.FindObjectsOfType<ChangableSightRange>());
+
+    if (how.Equals("Active")) {
+      foreach (ChangableSightRange c in all)
+      {
+        c.setSightActive();
+      }
+    }
+    else if (how.Equals("Neutral"))
+    {
+      foreach (ChangableSightRange c in all)
+      {
+        c.setNeutral();
+      }
+    }
+    else if (how.Equals("Reduced"))
+    {
+      foreach (ChangableSightRange c in all)
+      {
+        if (!c.exception)
+        {
+          c.setReduced();
+        }
+        else {
+          c.setSightActive();
+        }
+      }
+    }
+    else if (how.Equals("Blind"))
+    {
+      foreach (ChangableSightRange c in all)
+      {
+        c.setBlind();
+      }
+    }
+    else {
+      Debug.Log("Bad changeSight call");
+    }
+  }
   /// <summary>list of rigid bodies stopped in time</summary>
   private static Rigidbody[] bodies_s = null;
   private static List<MonoBehaviour> temporarilyDisabled_s = null;
@@ -26,13 +73,17 @@ public static class GameState {
     public Freeze(Rigidbody rb)
     {
       v = rb.velocity;
-      rb.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+      if (rb.gameObject.GetComponent<NavMeshAgent>()) {
+        rb.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+      }
       if (!rb.GetComponent<NavMeshAgent>())
         rb.isKinematic = true;
     }
     public void Unfreeze(Rigidbody rb)
     {
-      rb.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+      if(rb.gameObject.GetComponent<NavMeshAgent>())
+        rb.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+
       rb.velocity = v;
       if (!rb.GetComponent<NavMeshAgent>())
         rb.isKinematic = false;

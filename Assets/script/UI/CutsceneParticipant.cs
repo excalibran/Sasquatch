@@ -14,7 +14,7 @@ public class CutsceneParticipant : MonoBehaviour {
       cameraAngle = cameraPosition.position;
     }
 
-    if (cameraAngle == null || cameraAngle == Vector3.zero) {
+    if (cameraAngle == Vector3.zero) {
       cameraAngle = new Vector3(transform.position.x, 25, transform.position.z - 10);
     }
 

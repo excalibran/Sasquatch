@@ -63,8 +63,9 @@ GameObject:
   - component: {fileID: 212142070048211566}
   - component: {fileID: 114665452445378480}
   - component: {fileID: 114573636772955200}
+  - component: {fileID: 95470332228603184}
   m_Layer: 2
-  m_Name: Quad (1)
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +78,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310474033437670}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.24770045, y: 6.5, z: 0}
+  m_LocalPosition: {x: -27.23082, y: 2.4250045, z: -3.8897438}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4827686244865340}
@@ -232,6 +233,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &95470332228603184
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1551537635091656}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9dff4ee80f377104395358d0e1e22716, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114165075674346310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -246,6 +264,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetTag: Player
   targetSeen: 0
+  sensitivity: 120
 --- !u!114 &114293165830719670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,8 +279,11 @@ MonoBehaviour:
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   points: []
-  currentTarget: {x: 0, y: 0, z: 0}
+  clearReportDelay: 60
+  addToPatrolDelay: 1
+  maxPatrol: 5
   reports: {fileID: 0}
 --- !u!114 &114573443259590020
 MonoBehaviour:
@@ -285,11 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ed480e8c4c1a04a99cb836878f3cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 0b2d1ac092508a24fa5eb5b5e662cb13, type: 3}
-  - {fileID: 21300002, guid: 0b2d1ac092508a24fa5eb5b5e662cb13, type: 3}
-  - {fileID: 21300004, guid: 0b2d1ac092508a24fa5eb5b5e662cb13, type: 3}
-  - {fileID: 21300006, guid: 0b2d1ac092508a24fa5eb5b5e662cb13, type: 3}
+  sprites: []
 --- !u!114 &114665452445378480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,7 +374,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0b2d1ac092508a24fa5eb5b5e662cb13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: edee9ccfe5b0eaf4498366f99f4fdfe7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

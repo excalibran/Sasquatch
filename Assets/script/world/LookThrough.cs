@@ -11,7 +11,7 @@ public class LookThrough : MonoBehaviour {
 	
 	void Start () {
     mesh = GetComponent<MeshRenderer>();
-  
+    player = GameState.stPlayerRef.transform;
   }
 	
 	void Update () {

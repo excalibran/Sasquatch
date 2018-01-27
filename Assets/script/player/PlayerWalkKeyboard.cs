@@ -11,11 +11,18 @@ public class PlayerWalkKeyboard : MonoBehaviour {
   void Start () {
     costumes = new List<Costume>();
     costumes.AddRange( GetComponentsInChildren<Costume>());
-    swapCostume(0);
+    swapCostume("Naked");
   }
 
-  public void swapCostume(int index) {
-    currentCostume = costumes[index];
+  public void swapCostume(string designation) {
+
+    foreach (Costume c in costumes) {
+      if (designation.Equals(c.designation)) {
+        currentCostume = c;
+        currentCostume.anim.runtimeAnimatorController = currentCostume.nAnim;
+      }
+    }
+    //currentCostume = costumes[index];
   }
 	
 	void FixedUpdate () {
@@ -30,24 +37,62 @@ public class PlayerWalkKeyboard : MonoBehaviour {
     bool movingUp = moveVertical > 0;
     bool movingDown = moveVertical < 0;
 
-    if (movingDown && !movingLeft && !movingRight)
+    currentCostume.anim.SetBool("Down", false);
+    currentCostume.anim.SetBool("Up", false);
+    currentCostume.anim.SetBool("Side", false);
+    currentCostume.anim.SetBool("Idle", false);
+    currentCostume.sp.flipX = false;
+
+    //if (movingDown && !movingLeft && !movingRight)
+    if (movingDown)
     {
-      currentCostume.changeSprite(0);
+      //currentCostume.changeSprite(0);
+      currentCostume.anim.SetBool("Down", true);
+    }
+    //else if (movingRight && !movingDown && !movingUp)
+    else if (movingRight)
+    {
+      //currentCostume.changeSprite(1);
+      if (movingDown) {
+        currentCostume.anim.SetBool("Down", true);
+      }
+      else if (movingUp) {
+        currentCostume.anim.SetBool("Up", true);
+      }
+      else {
+        currentCostume.anim.SetBool("Side", true);
+        currentCostume.sp.flipX = true;
+      }
+      
     }
 
-    if (movingRight && !movingDown && !movingUp)
+    //else if (movingUp && !movingLeft && !movingRight)
+    else if (movingUp)
     {
-      currentCostume.changeSprite(1);
+      //currentCostume.changeSprite(2);
+      currentCostume.anim.SetBool("Up", true);
     }
 
-    if (movingUp && !movingLeft && !movingRight)
+    //else if (movingLeft && !movingDown && !movingUp)
+    else if (movingLeft)
     {
-      currentCostume.changeSprite(2);
-    }
+      //currentCostume.changeSprite(3);
+      
+      if (movingDown)
+      {
+        currentCostume.anim.SetBool("Down", true);
+      }
+      else if (movingUp)
+      {
+        currentCostume.anim.SetBool("Up", true);
+      }
+      else {
+        currentCostume.anim.SetBool("Side", true);
+      }
 
-    if (movingLeft && !movingDown && !movingUp)
-    {
-      currentCostume.changeSprite(3);
+    }
+    else {
+      currentCostume.anim.SetBool("Idle", true);
     }
 
     transform.position += movement * playerSpeedMod;

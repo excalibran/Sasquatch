@@ -9,7 +9,7 @@ public class patrolSetPath : MonoBehaviour
   //public List< patrolPath;
   public List<Transform> waypoints;
   public List<Vector3> points;
-  Vector3 currentTarget;
+  //Vector3 currentTarget;
 
   private int destPoint = 0;
   private NavMeshAgent agent;
@@ -33,7 +33,12 @@ public class patrolSetPath : MonoBehaviour
     agent = GetComponent<NavMeshAgent>();
     agent.autoBraking = false;
     detecter = GetComponentInChildren<SpotObject>();
-    
+
+    if (!reports) {
+      Reports [] rep = FindObjectsOfType<Reports>();
+      reports = rep[0];
+    }
+
     GotoNextPoint();
   }
 
@@ -63,7 +68,7 @@ public class patrolSetPath : MonoBehaviour
 
   void Update()
   {
-    currentTarget = agent.destination;
+    //currentTarget = agent.destination;
 
     if (agent.enabled) {
       if (detecter.targetSeen > 0 && detecter.target)

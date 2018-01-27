@@ -5,6 +5,8 @@ using UnityEngine;
 public class moveCamera : MonoBehaviour {
 
   public bool lockOnPlayer = true;
+  public float cameraHeight = 15;
+  public float cameraOffset;
   public GameObject player;
 
 	// Use this for initialization
@@ -24,7 +26,7 @@ public class moveCamera : MonoBehaviour {
       transform.position += movement * 1f;
     }
     else {
-      transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z-10);
+      transform.position = new Vector3(player.transform.position.x, player.transform.position.y + cameraHeight, player.transform.position.z-cameraOffset);
       transform.LookAt(player.transform);
     }
   }

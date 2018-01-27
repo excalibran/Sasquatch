@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class ChangeCostumeOnPickup : MonoBehaviour {
 
-
+  public string designation;
 
 	// Use this for initialization
 	void Start () {
 		
 	}
 
-  //// Update is called once per frame
-  //void Update () {
-
-  //}
-
+  
   void OnTriggerEnter(Collider other) {
     if (other.tag == "Player") {
-      other.GetComponent<PlayerWalkKeyboard>().swapCostume(1);
+      other.GetComponent<PlayerWalkKeyboard>().swapCostume(designation);
+      GameState.ChangeSightLines("Reduced");
     }
   }
 }

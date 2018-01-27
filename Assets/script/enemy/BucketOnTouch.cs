@@ -5,26 +5,31 @@ using UnityEngine;
 public class BucketOnTouch : MonoBehaviour {
 
   ChangableSightRange sight;
-  SpriteRenderer render;
+  public SpriteRenderer render;
   public Sprite bucketHead;
+  public bool currentlyBucketed = false;
 
 	// Use this for initialization
 	void Start () {
     sight = GetComponent<ChangableSightRange>();
-    render = GetComponentInChildren<SpriteRenderer>().gameObject.GetComponentInChildren<SpriteRenderer>();
+    render = GetComponentInChildren<SpriteRenderer>();
 	}
 
-  // Update is called once per frame
-  //void Update () {
-
-  //}
+  //Update is called once per frame
+  void Update()
+  {
+    if (currentlyBucketed) {
+      sight.setBlind();
+      render.sprite = bucketHead;
+    }
+  }
 
   void OnTriggerEnter(Collider other) {
     if (other.tag == "Player" && bucketHead && other.GetComponent<GrabAndUseBucket>() && other.GetComponent<GrabAndUseBucket>().bucketReady) {
       Debug.Log("bucket!");
-      sight.setBlind();
-      render.sprite = bucketHead;
-      other.GetComponent<GrabAndUseBucket>().bucketReady = false;
+
+      currentlyBucketed = true;
+      other.GetComponent<GrabAndUseBucket>().loseBucket();
     }
   }
 }

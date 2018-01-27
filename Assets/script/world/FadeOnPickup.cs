@@ -5,6 +5,7 @@ using UnityEngine;
 public class FadeOnPickup : MonoBehaviour {
 
   MeshRenderer mesh;
+  SpriteRenderer sprite;
   BoxCollider coll;
   public bool pickupOnce = true;
   public bool disappearAfter = true;
@@ -14,18 +15,18 @@ public class FadeOnPickup : MonoBehaviour {
 	void Start () {
     mesh = GetComponent<MeshRenderer>();
     coll = GetComponent<BoxCollider>();
+    sprite = GetComponent<SpriteRenderer>();
 
 	}
-
-  //// Update is called once per frame
-  //void Update () {
-
-  //}
 
   void OnTriggerEnter(Collider other) {
     if (other.tag == "Player") {
       if(disappearAfter)
-        mesh.enabled = false;
+        if(mesh)
+          mesh.enabled = false;
+
+      if (sprite)
+        sprite.enabled = false;
 
       if(pickupOnce)
         coll.enabled = false;      
